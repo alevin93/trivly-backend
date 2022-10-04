@@ -11,7 +11,14 @@ const userSchema = new Schema({
         required: true,
     },
     subscriptions: {
-        type: Number,
+        type: Array,
+        default: [
+            "History",
+            "Music",
+            "Film & TV",
+            "Science",
+            "General Knowledge",
+        ]
     },
     streams: {
         type: Number,

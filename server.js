@@ -6,11 +6,17 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/dbConnect');
+const cookies = require('cookie-parser');
+app.use(cookies());
 
 const Question = require('./models/Question');
+const Stream = require('./models/Stream');
+
+//DB Connection
+connectDB();
 
 async function getQuestions() {
-    let response = await axios.get("https://the-trivia-api.com/api/questions?categories=general_knowledge,science,music,history,geography&limit=1&region=US&difficulty=medium");
+    let response = await axios.get("https://the-trivia-api.com/api/questions?categories=general_knowledge,science,music,history,geography,film_and_tv&limit=20&region=US&difficulty=medium");
     let category = response.data.map(item => item.category);
     let question = response.data.map(item => item.question);
     let correct = response.data.map(item => item.correctAnswer);
@@ -32,13 +38,30 @@ async function getQuestions() {
 
     });
 
+    setTimeout(getQuestions, 3000);
+
 }
 
-getQuestions();
+async function getrandomquestion(category) {
+    const questions = await Question.find({ 'category': category });
+    let question = questions[Math.floor(Math.random() * questions.length)];
+    return question;
+}
+
+async function makeStreams() {
+    const result = await Stream.create({
+        "category": "General Knowledge",
+        "question": await getrandomquestion("General Knowledge"),
+    });
+    console.log(result);
+};
+
+//getrandomquestion("History");
+//makeStreams();
+//getQuestions();
 
 
-//DB Connection
-connectDB();
+
 
 app.use(express.json());
 
@@ -47,6 +70,8 @@ app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
+app.use('/feed', require('./routes/feed'));
+app.use('/question', require('./routes/question'))
 
 
 

@@ -2,6 +2,7 @@ const User = require('../models/User');
 const { resolveAny } = require('dns');
 
 const handleLogout = async (req,res) => {
+    console.log("handleLogoutRun");
     //on client, also delete access token
 
     const cookies = req.cookies;

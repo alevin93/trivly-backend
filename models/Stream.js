@@ -1,13 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Question = require('./Question')
+const Question = require('./Question').schema
 
 const streamSchema = new Schema({
-    stream: {
-        type: String,
-        required: true,
-    },
-    catagory: {
+    category: {
         type: String,
         required: true,
     },
