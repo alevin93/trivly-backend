@@ -7,6 +7,7 @@ const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 const connectDB = require('./config/dbConnect');
 const cookies = require('cookie-parser');
+const verifyJWT = require('./middleware/verifyJWT')
 app.use(cookies());
 
 const Question = require('./models/Question');
@@ -14,6 +15,7 @@ const Stream = require('./models/Stream');
 
 //DB Connection
 connectDB();
+app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
 
 async function getQuestions() {
     let response = await axios.get("https://the-trivia-api.com/api/questions?categories=general_knowledge,science,music,history,geography,film_and_tv&limit=20&region=US&difficulty=medium");
@@ -65,6 +67,12 @@ async function makeStreams() {
 
 app.use(express.json());
 
+app.post('/test', (req,res) => {
+    console.log("Test Route Run")
+    console.log(req.body.username);
+    console.log(req.body.password);
+    res.sendStatus(200);
+})
 //Routes
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
@@ -75,7 +83,6 @@ app.use('/question', require('./routes/question'))
 
 
 
-app.use(cors(corsOptions));
 
 PORT = process.env.PORT || 3000;
 

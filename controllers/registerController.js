@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
 
 const handleNewUser = async (req, res) => {
     const { user, pwd } = req.body;
@@ -18,7 +19,7 @@ const handleNewUser = async (req, res) => {
             "username": user,
             "password": hashedPwd, 
         });
-        
+
         console.log(result);
 
         res.status(201).json({ 'success': `New user ${user} created!` });
