@@ -5,12 +5,15 @@ const generateFeed = async (req,res) => {
     //check if cookies
     var userInfo = null;
     const cookies = req.cookies;
+    const user = req.body.user;
 
     const refreshToken = cookies.jwt;
 
     // Is refresh token in db?
-    const foundUser = await User.findOne({ refreshToken }).exec();
+    const foundUser = await User.findOne({ user }).exec();
+    console.log(foundUser)
     if (!foundUser) { 
+        console.log("No User Found")
         res.json(JSON.stringify(
          
             [

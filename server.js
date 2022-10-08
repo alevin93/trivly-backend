@@ -5,6 +5,7 @@ const axios = require('axios');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
+const credentials = require('./middleware/credentials')
 const connectDB = require('./config/dbConnect');
 const cookies = require('cookie-parser');
 const verifyJWT = require('./middleware/verifyJWT')
@@ -15,7 +16,8 @@ const Stream = require('./models/Stream');
 
 //DB Connection
 connectDB();
-app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
+app.use(credentials);
+app.use(cors(corsOptions));
 
 async function getQuestions() {
     let response = await axios.get("https://the-trivia-api.com/api/questions?categories=general_knowledge,science,music,history,geography,film_and_tv&limit=20&region=US&difficulty=medium");
