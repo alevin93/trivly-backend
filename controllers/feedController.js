@@ -3,17 +3,18 @@ const { resolveAny } = require('dns');
 
 const generateFeed = async (req,res) => {
     //check if cookies
-    var userInfo = null;
     const cookies = req.cookies;
-    const user = req.body.user;
+    const user = JSON.stringify(req.body.user).replace(/[^\w\s]/gi, '');
+    console.log(user)
 
     const refreshToken = cookies.jwt;
 
     // Is refresh token in db?
-    const foundUser = await User.findOne({ user }).exec();
-    console.log(foundUser)
+    const foundUser = await User.findOne({ "username": user }).exec();
+
+    console.log(foundUser);
+
     if (!foundUser) { 
-        console.log("No User Found")
         res.json(JSON.stringify(
          
             [

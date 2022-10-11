@@ -7,14 +7,12 @@ const handleRefreshToken = async (req,res) => {
     const refreshToken = cookies.jwt;
 
     const foundUser = await User.findOne({ refreshToken }).exec();
-    console.log(foundUser)
     if (!foundUser) return res.sendStatus(403); //forbidden
     //evaluate jwt
     jwt.verify(
         refreshToken,
         process.env.REFRESH_TOKEN_SECRET,
         (err, decoded) => {
-            console.log("DECODED: " + decoded.username);
             if (err || foundUser.username !== decoded.username) return res.sendStatus(403);
             const accessToken = jwt.sign(
                 {   "UserInfo": {

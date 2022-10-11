@@ -22,14 +22,12 @@ const handleLogin = async (req,res) => {
         const refreshToken = jwt.sign(
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '60d' }
+            { expiresIn: '15d' }
         );
         //saving refresh token with current user
         foundUser.refreshToken = refreshToken;
         const result = await foundUser.save();
-
-        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000 }); //add secure: true
-        //success
+        
         res.json({ accessToken });
     } else {
         res.sendStatus(401);
