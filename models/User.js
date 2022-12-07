@@ -18,13 +18,23 @@ const userSchema = new Schema({
         default: [
             "History",
             "Music",
-            "Film & TV",
+            "Film and TV",
             "Science",
             "General Knowledge",
         ]
     },
-    streams: {
-        type: Number,
+    arrayFeed: {
+        type: Array,
+        default: [
+            false,
+            false,
+            false,
+            false,
+            false,
+        ]
+    },
+    records: {
+        type: Array
     },
     refreshToken: String,
 });

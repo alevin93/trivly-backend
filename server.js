@@ -81,7 +81,9 @@ app.use('/auth', require('./routes/auth'));
 app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 app.use('/feed', require('./routes/feed'));
-app.use('/question', require('./routes/question'))
+app.use('/question', require('./routes/question'));
+app.use('/results', require('./routes/results'));
+app.use('/getResults', require('./routes/getResults'));
 
 
 

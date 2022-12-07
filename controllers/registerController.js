@@ -17,7 +17,10 @@ const handleNewUser = async (req, res) => {
         //store the new user
         const result = await User.create({ 
             "username": user,
-            "password": hashedPwd, 
+            "password": hashedPwd,
+            "records": {
+                category: "placeholder",
+            }
         });
 
         console.log(result);
