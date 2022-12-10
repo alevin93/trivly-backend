@@ -3,7 +3,7 @@ const User = require('../models/User')
 
 const getQuestion = async (req,res) => {
     cat = req.body.category;
-    if (!cat) { res.send(404) }
+    if (!cat) { res.send(200) }
     stream = await Stream.findOne({ 'category': cat });
 
     const user = JSON.stringify(req.body.user).replace(/[^\w\s]/gi, '');
