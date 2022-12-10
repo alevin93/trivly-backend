@@ -40,6 +40,7 @@ const generateFeed = async (req,res) => {
             [
                 "History",
                 "Music",
+                "Geography",
                 "Film and TV",
                 "Science",
                 "General Knowledge"

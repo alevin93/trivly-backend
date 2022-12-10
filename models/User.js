@@ -18,6 +18,7 @@ const userSchema = new Schema({
         default: [
             "History",
             "Music",
+            "Geography",
             "Film and TV",
             "Science",
             "General Knowledge",
@@ -26,6 +27,7 @@ const userSchema = new Schema({
     arrayFeed: {
         type: Array,
         default: [
+            false,
             false,
             false,
             false,
