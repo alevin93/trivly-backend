@@ -23,7 +23,8 @@ const generateFeed = async (req,res) => {
                 counter++;
             }
         }
-        if(subs.length == 0) {
+        console.log(subs);
+        if(subs.length === 0) {
             res.send("8675309");
         } 
         else {
